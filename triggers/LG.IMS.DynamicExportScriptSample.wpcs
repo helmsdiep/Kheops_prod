@@ -1,0 +1,16 @@
+function mapFields(hmGlobals, item, tech) {
+var e;var res;catchError(e) {
+var book = new ExcelBook(null,"XLSX");
+var sheet = book.createExcelSheet();
+var row = sheet.createRow(0);
+var cell = row.createExcelCell(0);
+var lib = getScriptByPath("/scripts/triggers/LG.Library.LGUtils");
+var convertL210NumberToUnit = lib.getFunctionByName("convertL210NumberToUnit");
+var getDedupCSV = lib.getFunctionByName("getDedupCSV");
+res = getDedupCSV.invoke(tech.invoke(hmGlobals, item, "03FN0068-ProductFunction",3,"","","",null),";");
+    if (null != res) {
+        cell.setCellType("STRING");
+        cell.setStringCellValue(res);
+}}
+if (e!=null){res=checkString(res,"")+ " - " + e.substring(1,300);}
+    return res;}
